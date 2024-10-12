@@ -9,7 +9,8 @@ app_name='blogs'
 
 urlpatterns = [
     path('',views.home,name='home'),
-    path('blogs/',views.blogs,name='blogs'),
-    path('all posts/',views.posts,name='posts')
+    path('blogs/',views.all_blogs,name='all_blogs'),
+    path('blogs/<int:blog_id>',views.blog,name='blogs'),
+    path('posts/',views.posts,name='posts')
 ]
 

@@ -2,6 +2,17 @@
 
 {% block content %}
 <h1>
-     Blogs page
+    Blogs
 </h1>
+<ul>
+    {%for x in blog_names%}
+    <h3>
+        <li>
+            <a href="{% url 'blogs:blogs' x.id%}">
+                {{x}}
+            </a>
+        </li>
+    </h3>
+    {%endfor%}
+</ul>
 {% endblock content %}

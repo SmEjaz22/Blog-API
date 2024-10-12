@@ -2,17 +2,16 @@
 
 {% block content %}
 <h1>
-     Blogs-Post page
+    {{blog_name.b_name}}
 </h1>
-
 <ul>
 {%for x in post_name%}
 
-
 <li>
-   <p> {{x.post_name}}</p>
-   <p> {{x.post|linebreaks}}</p>
+        {{x.post_name|linebreaks}}
+        {{x.post|linebreaks}}
 </li>
-{% endfor %}
 </ul>
+
+{%endfor%}
 {% endblock content %}
