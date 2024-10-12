@@ -4,14 +4,23 @@
 <h1>
     {{blog_name.b_name}}
 </h1>
-<ul>
-{%for x in post_name%}
 
-<li>
+<h3>
+    <a href="{%url 'blogs:new_posts' blog_name.id %}">
+        Create a new post
+    </a>
+</h3>
+
+
+<ul>
+    {%for x in post_name%}
+
+    <li>
         {{x.post_name|linebreaks}}
         {{x.post|linebreaks}}
-</li>
+    </li>
+    <a href="{%url 'blogs:edit_posts' x.id%}">Edit post</a>
+    {%endfor%}
 </ul>
 
-{%endfor%}
 {% endblock content %}
