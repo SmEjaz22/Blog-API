@@ -12,3 +12,4 @@ existing posts. Use your pages to make sure they work.
 Blog project you started in Exercise 19-1 (page 415). Make sure logged-in users 
 see their username somewhere on the screen and unregistered users see a link 
 to the registration page.
+✔

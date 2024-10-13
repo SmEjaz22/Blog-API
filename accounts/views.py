@@ -12,7 +12,7 @@ def register(request):
     if request.method != 'POST':
         form=UserCreationForm()
     else:
-         form=UserCreationForm(data=request.post)
+         form=UserCreationForm(data=request.POST) # Here POST= ✔, post=❌
     if form.is_valid():
         newuser=form.save()
         login(request,newuser) # As we are seeing here, login takes newuser in it's parame.
