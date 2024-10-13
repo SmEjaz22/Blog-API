@@ -16,7 +16,7 @@ class BlogForm(forms.ModelForm):
 # fields from the model should be included in the form.
 # For example, if your model has name, description, and date, and you only want name and description
         model = blog_name
-        fields = ['b_name'] # Want you want to include in the form from your Model.py
+        fields = ['b_name'] # What you want to include in the form from your Model.py
         labels = {'b_name': ''} 
         
 class PostForm(forms.ModelForm):
