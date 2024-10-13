@@ -6,6 +6,11 @@
 
     <a href="{%url 'blogs:all_blogs'%}"></a>
     {% if user.is_authenticated %}
+    <!-- In Django’s authentication system, every template has a user object 
+available that always has an is_authenticated attribute set: the attribute is 
+True if the user is logged in and False if they aren’t. This attribute allows you 
+to display one message to authenticated users and another to unauthenti
+cated users. -->
     <span style="font-size:20px; font-family:'Segoe UI'; float:right;">
         Hello, {{ user.username }}.</span>
     {% else %}
@@ -14,3 +19,11 @@
 </h1>
 
 {%block content%} {%endblock content%}
+
+{% if user.is_authenticated %}
+<hr />
+<form action="{% url 'accounts:logout' %}" method='post'>
+    {% csrf_token %}
+    <button name='submit'>Log out</button>
+</form>
+{% endif %}

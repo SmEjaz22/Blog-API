@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 # My settings.
 LOGIN_REDIRECT_URL = 'blogs:all_blogs'
-
+LOGOUT_REDIRECT_URL='accounts:login'
 # Application definition
 
 INSTALLED_APPS = [
