@@ -28,6 +28,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+
+# My settings.
+LOGIN_REDIRECT_URL = 'blogs:all_blogs'
+
 # Application definition
 
 INSTALLED_APPS = [
