@@ -1,0 +1,13 @@
+{% extends "blogs/base.html" %}
+
+{% block content %}
+
+<form action="{%url 'accounts:register'%}" method="post">
+    <!--Method post is important to minimize the chance of malicious attack.-->
+    {%csrf_token%}
+    {{form.as_div}}
+
+</form>
+
+
+{% endblock content %}

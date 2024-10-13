@@ -13,13 +13,17 @@ to display one message to authenticated users and another to unauthenti
 cated users. -->
     <span style="font-size:20px; font-family:'Segoe UI'; float:right;">
         Hello, {{ user.username }}.</span>
+
     {% else %}
-    <a href="{% url 'accounts:login' %}">Log in</a>
+    <div style="float: right;">
+        <a href="{% url 'accounts:register' %}">Register</a> -
+        <a href="{% url 'accounts:login' %}">Log in</a>
+    </div>
     {% endif %}
 </h1>
 
 {%block content%} {%endblock content%}
-
+<!-- For logging out a user -->
 {% if user.is_authenticated %}
 <hr />
 <form action="{% url 'accounts:logout' %}" method='post'>
