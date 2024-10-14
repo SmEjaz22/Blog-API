@@ -13,3 +13,10 @@ Blog project you started in Exercise 19-1 (page 415). Make sure logged-in users
 see their username somewhere on the screen and unregistered users see a link 
 to the registration page.
 ✔
+
+19-5. Protected Blog: In your Blog project, make sure each blog post is con
+nected to a particular user. Make sure all posts are publicly accessible but only 
+registered users can add posts and edit existing posts. In the view that allows 
+users to edit their posts, make sure the user is editing their own post before pro
+cessing the form.
+✔
