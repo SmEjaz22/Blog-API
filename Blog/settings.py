@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # My settings.
 LOGIN_REDIRECT_URL = 'blogs:all_blogs'
 LOGOUT_REDIRECT_URL='accounts:login'
+LOGIN_URL='accounts:login' #logged out users see this page when requesting any login_required page.
 # Application definition
 
 INSTALLED_APPS = [
