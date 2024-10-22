@@ -1,0 +1,30 @@
+{% extends "blogs/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="p-3 mb-4" style="background-color: #eaf4fc; border: 1px solid #d5ecff; border-radius: .5rem;">
+
+    <div class="container-fluid text-center py-4">
+        <h3 class="Display-4 fw-bold">{{ author }}'s Posts</h3>
+        <p class="mb-0">Here are the posts shared by {{ author }}.
+        </p>
+    </div>
+</div>
+
+<div class="mb-4">
+    <ul class="list-group">
+        {% for post in user_posts %}
+        <li class="list-group-item">
+            <h6 class="fw-bold">{{ post.post_name }}</h6>
+            <p>{{ post.post|linebreaks }}</p>
+            <p style="float:right ">{{ post.post_date|date:'D, d M Y. h:i A' }}</p>
+
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<a href="{% url 'blogs:posts' %}" class="btn btn-primary mb-2">Back to All Posts</a>
+
+{% endblock content %}

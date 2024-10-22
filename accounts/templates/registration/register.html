@@ -1,12 +1,28 @@
 {% extends "blogs/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+<div class="p-3 mb-4" style="background-color: #eaf4fc; border: 1px solid #d5ecff; border-radius: .5rem;">
+    <div class="container-fluid text-center py-4">
+        <h1 class="display-4 fw-bold" style="color: #003366;">Register For Free!</h1>
+        <!-- Softer blue color for heading -->
+        <p class="lead">Create your own blog and share posts on topics you're passionate about.
+            You can still explore and read posts without registering.
+        </p>
+    </div>
+</div>
+{% endblock page_header %}
+
+
+
 
 {% block content %}
 
-<form action="{%url 'accounts:register'%}" method="post">
+<form action=" {%url 'accounts:register' %}" method="post" class="mb-2">
     <!--Method post is important to minimize the chance of malicious attack.-->
     {%csrf_token%}
-    {{form.as_div}}
-    <button name="submit"> Register</button>
+    {%bootstrap_form form%}
+    {% bootstrap_button button_type="submit" content="Register" %}
 </form>
 
 

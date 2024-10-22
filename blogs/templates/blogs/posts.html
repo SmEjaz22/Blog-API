@@ -1,19 +1,69 @@
 {% extends "blogs/base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
-<h1>
-    Blogs-Post page
-</h1>
+<div class="p-3 mb-4" style="background-color: #eaf4fc; border: 1px solid #d5ecff; border-radius: .5rem;">
+
+    <div class="container-fluid text-center py-4">
+        <h5 class="display-6 fw-bold" style="color: #003366;">Welcome to the Community Posts!</h5>
+        <p class="mb-0">Browse through posts shared by others, or login to create your own to join the conversation.</p>
+    </div>
+</div>
+
+{% for author, posts in posts_by_author.items %}
+<div class="mb-4">
+    <span class="fw-bold" style="font-size: x-large;">{{ author }}'s Posts</span>
+    {% if author == owner.username%}
+    <span style="font-weight: 400"> (You) </span>
+    {%endif%}
+    <ul class="list-group">
+        {% for post in posts %}
+        <li class="list-group-item">
+            <h6 class="fw-bold">{{ post.post_name }}</h6>
+            <p>{{ post.post|linebreaks }}</p>
+            <p style="float:right ">{{ post.post_date|date:'D, d M Y. h:i A' }}</p>
+            <!-- This line displays the post_date -->
+        </li>
+
+        {% endfor %}
+    </ul>
+
+    {% if author in authors_with_more_posts %}
+    <a href="{% url 'blogs:user_posts' author %}" class="btn btn-link">Read more posts from {{ author }}</a>
+    {% endif %}
+</div>
+{% endfor %}
 
 
-<ul>
-    {%for x in post_name%}
+
+<script>
+    // Store scroll position before navigating to user_posts
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+    // Restore scroll position when loading the posts page
+    function restoreScrollPosition() {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            sessionStorage.removeItem('scrollPosition'); // Clear the position after use
+        }
+    }
+
+    // Attach the function to the "Read more posts" link
+    document.addEventListener("DOMContentLoaded", function () {
+        const readMoreLinks = document.querySelectorAll("a.btn-link"); // Assuming these are your links
+        readMoreLinks.forEach(link => {
+            link.addEventListener("click", storeScrollPosition);
+        });
+
+        restoreScrollPosition(); // Restore position when the page loads
+    });
+</script>
 
 
-    <li>
-        <p> {{x.post_name}}</p>
-        <p> {{x.post|linebreaks}}</p>
-    </li>
-    {% endfor %}
-</ul>
+
+
+
 {% endblock content %}

@@ -1,13 +1,15 @@
 {%extends 'blogs/base.html'%}
+{% load django_bootstrap5 %}
 
-{% block content %}
+
+{%block content%}
 <h3> Write Blog Title! </h3>
+
 
 <form action="{%url 'blogs:new_blogs'%}" method="post">
     {%csrf_token%}
-    {{form.as_p}}
-
-    <button name="submit">Add Blog</button>
+    {% bootstrap_form form %}
+    {% bootstrap_button button_type="submit" content="Add Blog" %}
 </form>
 
 {% endblock content %}

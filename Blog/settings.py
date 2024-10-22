@@ -39,6 +39,9 @@ LOGIN_URL='accounts:login' #logged out users see this page when requesting any l
 INSTALLED_APPS = [
     'blogs',
     'accounts',
+    # Third party application
+    'django_bootstrap5',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -113,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/karachi'
 
 USE_I18N = True
 

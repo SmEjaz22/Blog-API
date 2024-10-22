@@ -19,7 +19,10 @@ class blog_post(models.Model): # if forgot models.Model then app won't makemigra
     f_key=models.ForeignKey(blog_name,on_delete=models.CASCADE)
     post_name=models.CharField(max_length=150)
     post=models.TextField()
+    post_date=models.DateTimeField(auto_now_add=True)
     
+    #auto_now takes precedence (obviously, because it updates field each time, while auto_now_add updates on creation only.
+    # So making last_modified as auto_now_add Does not automatically update time on each save. But rather updates on creation(new entry is created when change is detected) only.
     
     
     def __str__(self):

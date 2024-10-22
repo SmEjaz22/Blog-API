@@ -1,33 +1,90 @@
-<h1>
-    <a href="{%url 'blogs:all_blogs' %}">Blogs</a> -
-    <a href="{%url 'blogs:posts' %}">All Posts</a>
-    &nbsp &nbsp
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloggy</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{%url 'blogs:home' %}">Bloggy Home</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {%if user.is_authenticated%}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{%url 'blogs:all_blogs' %}">My Blogs</a>
+                    </li>
+                    {%endif%}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{%url 'blogs:posts' %}">All Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
 
 
-    <a href="{%url 'blogs:all_blogs'%}"></a>
-    {% if user.is_authenticated %}
-    <!-- In Django’s authentication system, every template has a user object 
-available that always has an is_authenticated attribute set: the attribute is 
-True if the user is logged in and False if they aren’t. This attribute allows you 
-to display one message to authenticated users and another to unauthenti
-cated users. -->
-    <span style="font-size:20px; font-family:'Segoe UI'; float:right;">
-        Hello, {{ user.username }}.</span>
 
-    {% else %}
-    <div style="float: right;">
-        <a href="{% url 'accounts:register' %}">Register</a> -
-        <a href="{% url 'accounts:login' %}">Log in</a>
-    </div>
-    {% endif %}
-</h1>
 
-{%block content%} {%endblock content%}
-<!-- For logging out a user -->
-{% if user.is_authenticated %}
-<hr />
-<form action="{% url 'accounts:logout' %}" method='post'>
-    {% csrf_token %}
-    <button name='submit'>Log out</button>
-</form>
-{% endif %}
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0"> <!--ms-auto means margin start automatic-->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="navbar-text me-2">Hello, {{ user.username }}.
+                        </span>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:register' %}">
+                            Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:login' %}">
+                            Log in</a>
+                    </li>
+                    {% endif %}
+                </ul> <!-- End of account-related links -->
+
+
+                {% if user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method='post'>
+                    {% csrf_token %}
+                    <button name='submit' class='btn btn-outline-secondary btn-sm'>
+                        Log out</button>
+                </form>
+                {% endif %}
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="pb-2 mb-2 border-bottom"> <!--pb means padding bottom, mb means margin bottom-->
+            {% block page_header %}{% endblock page_header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{% extends "blogs/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="p-4 mb-5" style="background-color: #f0f8ff; border: 1px solid #c4e3ff; border-radius: .5rem;">
+    <div class="container-fluid text-center py-3">
+        <h1 class="display-7 fw-bold" style="color: #003366;">You are already logged-in</h1>
+        <!-- Subtle, professional color -->
+        <p class="lead" style="color: #004080;">If you want to register with a different username. Logout first.</p>
+    </div>
+</div>
+{% endblock content%}

@@ -1,10 +1,10 @@
 {% extends "blogs/base.html" %}
-
+{% load django_bootstrap5 %}
 
 {% block content %}
 <!--Django uses a default view function for login template. We don't need to create one. -->
-<h1 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;font-weight: 100;font-size: 40px;">
-    Hello, {{user}}
+<h1 class="display-5 text-center fw-bold" style="color: #003366;">
+    Welcome Back!
 </h1>
 
 {% if form.errors %}
@@ -12,7 +12,8 @@
   {% endif %}
    <form action="{% url 'accounts:login' %}" method='post'>
     {% csrf_token %}
-    {{ form.as_div }}
-     <button name="submit">Log in</button>
+    {% bootstrap_form form %}
+    {% bootstrap_button button_type="submit" content="Log in" %}
+
   </form>
 {% endblock content %}
