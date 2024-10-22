@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qb)3fk+%2lu_%zqt^pe=yhc@gcdi^($+n@6ab92tq%-857-^k3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+import os
+DEBUG = os.getenv('VERCEL_ENV') is None
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
 
 
 
@@ -84,12 +85,45 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# For quick development, use sqlite3db in localhost. When finished, comment this and uncomment postgres.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# # Only for localhost. Remove in deployed/github repo.
+# from dotenv import load_dotenv
+
+# # Only load .env if not running on Vercel
+# if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
+#     load_dotenv()   
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_DATABASE'),
+#         'USER': os.environ.get('POSTGRES_USER'),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+#         'HOST': os.environ.get('POSTGRES_HOST'),
+#         'PORT': '5432',  # Default PostgreSQL port
+#         'OPTIONS': {
+#             'sslmode': 'require' if os.getenv('VERCEL_ENV') else 'prefer',  # Use 'require' on Vercel, 'prefer' locally.
+#         },
+#     }
+# }
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Password validation

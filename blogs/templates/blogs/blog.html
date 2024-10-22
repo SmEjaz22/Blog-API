@@ -25,19 +25,21 @@
 <ul>
     {%for x in post_name%}
 
-    <div class="card mb-3 shadow-sm" style="border-radius: 0.5rem; overflow: hidden;">
+    <div class="card mb-3" style="border: none; border-radius: 0.5rem; overflow: hidden;">
         <!-- Card header with timestamp and edit link -->
-        <h4 class="card-header"
-            style="background-color: #0056b3; color: white; display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
-            <span>{{ x.post_date|date:'D, d M Y, h:i A' }}</span>
+        <div class="card-header"
+            style="background-color: #343a40; color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+            <h5 class="mb-0" style="font-size: 1.2rem;">{{ x.post_date|date:'D, d M Y, h:i A' }}</h5>
             <small>
-                <a href="{% url 'blogs:edit_posts' x.id %}" style="color: white; text-decoration: underline;">edit
-                    entry</a>
+                <a href="{% url 'blogs:edit_posts' x.id %}"
+                    style="color: #61dafb; text-decoration: none; transition: color 0.3s;">
+                    edit entry
+                </a>
             </small>
-        </h4>
-        <div class="card-body" style="background-color: #f8f9fa; padding: 1.5rem;">
-            <h5 class="fw-semibold" style="margin-bottom: 0.5rem;">{{ x.post_name|linebreaks }}</h5>
-            <p style="color: #555;">{{ x.post|linebreaks }}</p>
+        </div>
+        <div class="card-body" style="background-color: #f4f4f4; padding: 1.5rem;">
+            <h6 class="fw-bold" style="margin-bottom: 0.5rem; color: #333;">{{ x.post_name|linebreaks }}</h6>
+            <p style="color: #666; line-height: 1.5;">{{ x.post|linebreaks }}</p>
         </div>
     </div>
     {%endfor%}
