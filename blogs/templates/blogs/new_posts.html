@@ -2,15 +2,36 @@
 {% load django_bootstrap5 %}
 
 {% block page_header %}
+
+
+<div class="p-5 mb-5"
+    style="background-color: #f0f8ff; border: 1px solid #d1e7dd; border-radius: .5rem; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <div class="container-fluid text-center">
+        <h1 class="display-6 fw-bold" style="color: #003366;">Sharing with Purpose</h1>
+        <p class="lead" style="color: #333;">
+            We’re excited to have you share your thoughts and experiences here. Just a heads-up: once
+            you post something,<span class="fw-semibold" style="color: #003366;"> your thoughts will forever remain
+                visible to everyone and stays on the site.</span>
+            We encourage you to think
+            carefully about what you share, as your words contribute to our community’s atmosphere. Let’s work together
+            to make Bloggy a positive and welcoming space for all!
+        </p>
+    </div>
+</div>
+
+
 <h3> Add New Post for ' {{blog_name.b_name}} ' </h3>
+
+
 {%endblock page_header%}
 
 {% block content %}
 
-<form action="{%url 'blogs:new_posts' blog_name.id %} " method="post">
+
+<form action="{%url 'blogs:new_posts' blog_name.id %} " method="post" class="mb-4">
     {%csrf_token%}
     {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="Add this post" %}
+    {% bootstrap_button button_type="submit" content="Share this post" %}
 </form>
 
 

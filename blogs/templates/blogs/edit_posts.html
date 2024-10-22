@@ -2,10 +2,14 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
-
-  <form action="{% url 'blogs:edit_posts' post.id %}" method='post'>
+<h2> Blog name:
+    <a href="{% url 'blogs:blogs' blog.id %}">
+        {{blog.b_name}}
+    </a>
+</h2>
+<form action="{% url 'blogs:edit_posts' post.id %}" method='post'>
     {% csrf_token %}
     {% bootstrap_form form %}
     {% bootstrap_button button_type="submit" content="Save changes" %}
-  </form>
+</form>
 {% endblock content %}

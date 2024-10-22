@@ -1,6 +1,16 @@
 {% extends "blogs/base.html" %}
-
+{% load django_bootstrap5 %}
 {% block content %}
+
+
+
+
+
+
+
+
+
+
 <h1>
     {{blog_name.b_name}}
 </h1>
@@ -15,11 +25,21 @@
 <ul>
     {%for x in post_name%}
 
-    <li>
-        {{x.post_name|linebreaks}}
-        {{x.post|linebreaks}}
-    </li>
-    <a href="{%url 'blogs:edit_posts' x.id%}">Edit post</a>
+    <div class="card mb-3 shadow-sm" style="border-radius: 0.5rem; overflow: hidden;">
+        <!-- Card header with timestamp and edit link -->
+        <h4 class="card-header"
+            style="background-color: #0056b3; color: white; display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
+            <span>{{ x.post_date|date:'D, d M Y, h:i A' }}</span>
+            <small>
+                <a href="{% url 'blogs:edit_posts' x.id %}" style="color: white; text-decoration: underline;">edit
+                    entry</a>
+            </small>
+        </h4>
+        <div class="card-body" style="background-color: #f8f9fa; padding: 1.5rem;">
+            <h5 class="fw-semibold" style="margin-bottom: 0.5rem;">{{ x.post_name|linebreaks }}</h5>
+            <p style="color: #555;">{{ x.post|linebreaks }}</p>
+        </div>
+    </div>
     {%endfor%}
 </ul>
 
