@@ -44,51 +44,8 @@ def blog(request,blog_id):
 from django.db.models import Count
 
 def posts(request):
-    # Get posts grouped by each user, limiting to 3 per user
-    posts_by_author = {}
     
-    if request.user.is_authenticated:
-        user_posts = blog_post.objects.filter(f_key__user=request.user).order_by('-post_date')
-        other_posts = blog_post.objects.exclude(f_key__user=request.user).order_by('-post_date')
-
-        # Combine the querysets so that the logged-in user's posts appear first
-        all_posts = list(user_posts) + list(other_posts)
-    else:
-        all_posts = blog_post.objects.select_related('f_key').order_by('-post_date')
-
-    # Create a dictionary where the key is the username, and the value is a list of up to 3 posts
-    for post in all_posts:
-        author = post.f_key.user.username
-        if author not in posts_by_author:
-            posts_by_author[author] = []
-        if len(posts_by_author[author]) < 3:
-            posts_by_author[author].append(post)
-    
-    # Check if users have more than 3 posts
-    authors_with_more_posts = (
-        blog_post.objects.values_list('f_key__user__username',flat=True)
-        # selects the username of the user related to the f_key (foreign key) in blog_post.
-        
-        # The flat=True option in values_list is used to return a single list of values instead of a list of tuples.
-
-        # Example:
-        # Without flat=True: If you query for usernames without this option, the result will be a list of tuples, like this:
-        # [('username1',), ('username2',), ('username3',)]
-        
-        # With flat=True: When you use flat=True, you get a flat list:
-        # ['username1', 'username2', 'username3']
-        
-        .annotate(post_count=Count('id'))
-        .filter(post_count__gt=3)
-    )
-    # In Python, round brackets can be used to group expressions or break lines without creating a tuple unless there's a comma separating values. So, this code simply defines a QuerySet using Django's ORM chain of methods and breaks it into readable lines.
-
-    context = {
-        'posts_by_author': posts_by_author,
-        'authors_with_more_posts': list(authors_with_more_posts),
-        'owner':request.user
-    }
-    return render(request, 'blogs/posts.html', context)
+    return render(request, 'blogs/posts.html')
 
 
 @login_required
