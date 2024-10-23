@@ -99,11 +99,11 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 
 
 # Only for localhost. Remove in deployed/github repo.
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# # Only load .env if not running on Vercel
-# if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
-#     load_dotenv()   
+# Only load .env if not running on Vercel
+if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
+    load_dotenv()   
     
     
     
