@@ -74,6 +74,8 @@ def posts(request):
         .values('f_key__user__username')
         .annotate(post_count=Count('id'))
         .filter(post_count__gt=3)
+    # The __gt lookup stands for "greater than," so post_count__gt=3 filters out only those results where the post_count is greater than 3.
+    # This means it will return only the authors who have more than 3 blog posts.
     )
 
     context = {
