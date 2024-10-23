@@ -148,8 +148,7 @@ def edit_posts(request, post_id):
         raise Http404("404 not found")
     
     
-    # if f_key.user != request.user: #f_key.user literally means blog.user. We check whether the user/owner of the blog matches the currently logged-in user.
-    #     raise Http404
+    # if f_key.user != request.user: #f_key.user literally means blog.user. We check whether the user/owner of the blog matches the currently logged-in user. raise Http404
     
     check_blog_owner(request,f_key)
     
