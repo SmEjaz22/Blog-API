@@ -97,36 +97,6 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 
 
 
-# import os
-
-# # Explicitly set environment variables to ensure Django picks them up correctly
-# os.environ['POSTGRES_DATABASE'] = 'verceldb'
-# os.environ['POSTGRES_USER'] = 'default'
-# os.environ['POSTGRES_PASSWORD'] = 'OdLBbI1z0YUw'
-# os.environ['POSTGRES_HOST'] = 'ep-nameless-math-a1etcfh5-pooler.ap-southeast-1.aws.neon.tech'
-
-# # Define DATABASES after setting the environment variables
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ['POSTGRES_DATABASE'],
-#         'USER': os.environ['POSTGRES_USER'],
-#         'PASSWORD': os.environ['POSTGRES_PASSWORD'],
-#         'HOST': os.environ['POSTGRES_HOST'],
-#         'PORT': '5432',
-#     }
-# }
-
-
-
-
-
-
-
-
-
-
-
 
 # Only for localhost. Remove in deployed/github repo.
 from dotenv import load_dotenv
@@ -137,10 +107,6 @@ if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Verce
     
     
     
-print("Postgres Database:", os.getenv('POSTGRES_DATABASE'))
-print("Postgres User:", os.getenv('POSTGRES_USER'))
-print("Postgres Host:", os.getenv('POSTGRES_HOST'))
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
