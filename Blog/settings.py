@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-qb)3fk+%2lu_%zqt^pe=yhc@gcdi^($+n@6ab92tq%-857-^k3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 import os
-DEBUG = True
+DEBUG = os.getenv('VERCEL_ENV') is None
 
 ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
 
@@ -99,11 +99,11 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 
 
 # Only for localhost. Remove in deployed/github repo.
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-# Only load .env if not running on Vercel
-if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
-    load_dotenv()   
+# # Only load .env if not running on Vercel
+# if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
+#     load_dotenv()   
     
     
     
