@@ -134,6 +134,13 @@ from dotenv import load_dotenv
 # Only load .env if not running on Vercel
 if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
     load_dotenv()   
+    
+    
+    
+print("Postgres Database:", os.getenv('POSTGRES_DATABASE'))
+print("Postgres User:", os.getenv('POSTGRES_USER'))
+print("Postgres Host:", os.getenv('POSTGRES_HOST'))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -184,7 +191,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/karachi'
+TIME_ZONE = 'Asia/Karachi'
 
 USE_I18N = True
 
