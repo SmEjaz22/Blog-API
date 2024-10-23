@@ -86,33 +86,67 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 # For quick development, use sqlite3db in localhost. When finished, comment this and uncomment postgres.
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
-# # Only for localhost. Remove in deployed/github repo.
-# from dotenv import load_dotenv
 
-# # Only load .env if not running on Vercel
-# if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
-#     load_dotenv()   
+
+
+# import os
+
+# # Explicitly set environment variables to ensure Django picks them up correctly
+# os.environ['POSTGRES_DATABASE'] = 'verceldb'
+# os.environ['POSTGRES_USER'] = 'default'
+# os.environ['POSTGRES_PASSWORD'] = 'OdLBbI1z0YUw'
+# os.environ['POSTGRES_HOST'] = 'ep-nameless-math-a1etcfh5-pooler.ap-southeast-1.aws.neon.tech'
+
+# # Define DATABASES after setting the environment variables
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('POSTGRES_DATABASE'),
-#         'USER': os.environ.get('POSTGRES_USER'),
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-#         'HOST': os.environ.get('POSTGRES_HOST'),
-#         'PORT': '5432',  # Default PostgreSQL port
-#         'OPTIONS': {
-#             'sslmode': 'require' if os.getenv('VERCEL_ENV') else 'prefer',  # Use 'require' on Vercel, 'prefer' locally.
-#         },
+#         'NAME': os.environ['POSTGRES_DATABASE'],
+#         'USER': os.environ['POSTGRES_USER'],
+#         'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+#         'HOST': os.environ['POSTGRES_HOST'],
+#         'PORT': '5432',
 #     }
 # }
+
+
+
+
+
+
+
+
+
+
+
+
+# Only for localhost. Remove in deployed/github repo.
+from dotenv import load_dotenv
+
+# Only load .env if not running on Vercel
+if os.getenv('VERCEL_ENV') is None:  # This environment variable is set on Vercel automatically
+    load_dotenv()   
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DATABASE'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': '5432',  # Default PostgreSQL port
+        'OPTIONS': {
+            'sslmode': 'require' if os.getenv('VERCEL_ENV') else 'prefer',  # Use 'require' on Vercel, 'prefer' locally.
+        },
+    }
+}
 
 
 
