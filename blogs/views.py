@@ -42,10 +42,46 @@ def blog(request,blog_id):
 
 
 from django.db.models import Count
+from django.shortcuts import render
 
 def posts(request):
+    # Use a queryset with annotations to count posts per author and filter for those with more than 3 posts
+    if request.user.is_authenticated:
+        # Get all posts, ordering by post_date, and annotating to count posts per user
+        all_posts = (
+            blog_post.objects
+            .select_related('f_key')  # Use select_related for f_key to reduce queries
+            .prefetch_related('f_key__user')  # Prefetch related user objects for efficiency
+            .order_by('-post_date')
+        )
+    else:
+        all_posts = blog_post.objects.select_related('f_key').order_by('-post_date')
+
+    # Create a dictionary where the key is the username, and the value is a list of up to 3 posts
+    posts_by_author = {}
     
-    return render(request, 'blogs/posts.html')
+    # Limit to 3 posts per author directly while iterating
+    for post in all_posts:
+        author = post.f_key.user.username
+        if author not in posts_by_author:
+            posts_by_author[author] = []
+        if len(posts_by_author[author]) < 3:
+            posts_by_author[author].append(post)
+
+    # Get authors with more than 3 posts
+    authors_with_more_posts = (
+        blog_post.objects
+        .values('f_key__user__username')
+        .annotate(post_count=Count('id'))
+        .filter(post_count__gt=3)
+    )
+
+    context = {
+        'posts_by_author': posts_by_author,
+        'authors_with_more_posts': [author['f_key__user__username'] for author in authors_with_more_posts],
+        'owner': request.user
+    }
+    return render(request, 'blogs/posts.html', context)
 
 
 @login_required
