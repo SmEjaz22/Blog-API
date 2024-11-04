@@ -118,32 +118,26 @@ def posts(request):
 
 @api_view(['GET','POST'])
 def new_blogs(request):
-    """New blogs add"""
-    #After the creation of forms under forms.py
-    if request.method != 'POST':
-        form=BlogForm()
-    else:
-        form=BlogForm(data=request.POST)
-    if form.is_valid():
-        
-        new_blog=form.save(commit=False)
-        new_blog.user=request.user #We set the new blog's user attribute to the current user. 
-        new_blog.save()
-        
-        
-        
-        # form.save()
-        # return redirect('blogs:all_blogs')
+    """Add a new blog."""
     
-    # context={'form':form}
-    # return render(request,'blogs/new_blogs.html',context)
+    if request.method == 'GET':
+        # Create an empty instance of the form to represent the fields needed for creating a new blog
+        empty_form = BlogForm()
+        empty_form_data = {field.name: '' for field in empty_form} #loop through all the fields which lies under the BlogForm() form. And we also use {} here, means we converted this into JSON, so need of serialization. 
+        # field.name refers to the name attribute of a field defined in the BlogForm. Each field in a Django form is an instance of a Field class (such as CharField, TextField, etc.), and each of these instances has a name property. This property corresponds to the name of the field as specified when the form was defined.
+        return Response(empty_form_data)  # Return serialized data as JSON
+    elif request.method=='POST':
+        form = BlogForm(data=request.data)
+        if form.is_valid():
+            new_blog = form.save(commit=False)
+            new_blog.user = request.user  # Assign the blog to the current user
+            new_blog.save()
+            
+            new_blog_serializer = BlogSerializers(new_blog)
+            return Response(new_blog_serializer.data, status=201)  # Successful creation
     
-        new_Blog_serialiazer=BlogSerializers(new_blog)
-        return Response(new_Blog_serialiazer.data,status=201)
-    
-    return Response(form.errors, status=400)
-    
-    
+        # If form is invalid, return form errors
+        return Response(form.errors, status=400)    
 
 @login_required
 @never_cache
@@ -213,8 +207,8 @@ def edit_posts(request, post_id):
     else:
         serializer=PostSerializers(post, data=request.data)
         if serializer.is_valid():
-            if serializer.initial_data != serializer.validated_data:
-                post.post_date=timezone.now()   # Is same as "post.post_date = timezone.now()"  # Update only if changes were made
+            if serializer.initial_data != serializer.validated_data:  # same as if form.has_changed()
+                post.post_date=timezone.now()   # Update only even if any one field changes.
 
     # Manually set the foreign key to the blog instance
             serializer.save(f_key=f_key)

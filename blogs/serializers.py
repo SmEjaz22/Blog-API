@@ -11,5 +11,6 @@ class PostSerializers(serializers.ModelSerializer):
     #Data Representation: In your case, the owner's name is associated with the blog_post through the f_key (which refers to the related blog_name model). By specifying the owner_name field in the serializer, you're able to return this information as part of the serialized output, making it easier for clients consuming the API to get all relevant details about a post in one response.
     class Meta:
         model=blog_post
-        fields='__all__'
+        # fields='__all__'  #Reason of comment!!! Cannot set both 'fields' and 'exclude' options on serializer PostSerializers.
         extra_fields=['owner_name']
+        exclude=['f_key']
