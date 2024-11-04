@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     #2FA
     'django_otp',
     'django_otp.plugins.otp_totp',
+    
+    #API's
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
